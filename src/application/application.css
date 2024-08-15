@@ -1,0 +1,37 @@
+/* JavaFX CSS - Leave this comment until you have at least cre/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.bottom-container {
+	-fx-background-color: rgba(44, 74, 102, 0.7);
+}
+
+.days_background {
+	-fx-background-color: #43709a;
+	-fx-background-radius: 50;
+}
+
+/* Define a class for the daytime background */
+.day_background {
+    -fx-background-image: url("daysky.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+/* Define a class for the nighttime background */
+.night_background {
+    -fx-background-image: url("nightsky.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+/* General background for a container */
+.container_background {
+    -fx-background-color: #333; /* grey background as a fallback */
+}
+
+
+
+
+
+.search_btn {
+	
+}
