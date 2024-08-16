@@ -14,16 +14,18 @@ import org.json.simple.parser.JSONParser;
 
 public class ApiController {
 
-    private final String API_KEY = "60756bc41881c20a8c7806dbcbb5e1ec";
+    private final String API_KEY = "YOUR_OWN_API_KEY";
     private final String CURRENT_ENDPOINT = "http://api.weatherstack.com/current";
     private final String FORECAST_ENDPOINT = "http://api.weatherstack.com/forecast";
 
     /**
-     * Fetches current weather data from the WeatherStack API for a given city and unit.
+     * Fetches current weather data from the WeatherStack API for a given city and
+     * unit.
      * 
      * @param city The city for which to fetch the weather data.
      * @param unit The unit of measurement ("m" for Celsius, "f" for Fahrenheit).
-     * @return A WeatherData object containing the fetched data, or null if an error occurs.
+     * @return A WeatherData object containing the fetched data, or null if an error
+     *         occurs.
      */
     public WeatherData fetchWeatherData(String city, String unit) {
         try {
@@ -44,7 +46,8 @@ public class ApiController {
             JSONParser parser = new JSONParser();
             JSONObject jsonResponse = (JSONObject) parser.parse(response.toString());
 
-//            System.out.println("Current Weather Response: " + response.toString()); // Debugging
+            // System.out.println("Current Weather Response: " + response.toString()); //
+            // Debugging
 
             if (!jsonResponse.containsKey("current")) {
                 System.out.println("Error: 'current' key not found in the API response.");
@@ -62,7 +65,8 @@ public class ApiController {
             String isDay = (String) current.get("is_day");
             String localtime = (String) ((JSONObject) jsonResponse.get("location")).get("localtime");
 
-            return new WeatherData(locationName, weatherDescriptions, temperature, humidity, weatherIcons, isDay, localtime);
+            return new WeatherData(locationName, weatherDescriptions, temperature, humidity, weatherIcons, isDay,
+                    localtime);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +84,8 @@ public class ApiController {
     public Map<String, ForecastData> fetchForecastData(String city, String unit) {
         try {
             String encodedCity = URLEncoder.encode(city, "UTF-8");
-            String urlString = FORECAST_ENDPOINT + "?access_key=" + API_KEY + "&query=" + encodedCity + "&units=" + unit;
+            String urlString = FORECAST_ENDPOINT + "?access_key=" + API_KEY + "&query=" + encodedCity + "&units="
+                    + unit;
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -96,7 +101,7 @@ public class ApiController {
             JSONParser parser = new JSONParser();
             JSONObject jsonResponse = (JSONObject) parser.parse(response.toString());
 
-//            System.out.println("Forecast Response: " + response.toString()); // Debugging
+            // System.out.println("Forecast Response: " + response.toString()); // Debugging
 
             if (!jsonResponse.containsKey("forecast")) {
                 System.out.println("Error: 'forecast' key not found in the API response.");
@@ -110,11 +115,11 @@ public class ApiController {
                 JSONObject dayForecast = (JSONObject) forecast.get(key);
                 JSONObject astro = (JSONObject) dayForecast.get("astro");
                 ForecastData data = new ForecastData(
-                    
-                		String.valueOf(((Number) dayForecast.get("avgtemp")).doubleValue()),
-                	    String.valueOf(((Number) dayForecast.get("maxtemp")).doubleValue()),
-                	    String.valueOf(((Number) dayForecast.get("mintemp")).doubleValue())
-                    
+
+                        String.valueOf(((Number) dayForecast.get("avgtemp")).doubleValue()),
+                        String.valueOf(((Number) dayForecast.get("maxtemp")).doubleValue()),
+                        String.valueOf(((Number) dayForecast.get("mintemp")).doubleValue())
+
                 );
                 forecastDataMap.put((String) dayForecast.get("date"), data);
             }
@@ -137,8 +142,8 @@ public class ApiController {
         private String isDay;
         private String localtime;
 
-
-        public WeatherData(String locationName, String description, Double temperature, Long humidity, String weatherIcons, String isDay, String localtime) {
+        public WeatherData(String locationName, String description, Double temperature, Long humidity,
+                String weatherIcons, String isDay, String localtime) {
             this.locationName = locationName;
             this.description = description;
             this.temperature = temperature;
@@ -182,27 +187,25 @@ public class ApiController {
         private String maxTemperature;
         private String minTemperature;
 
-
         // Constructor
         public ForecastData(String avgTemperature, String maxTemperature, String minTemperature) {
             this.avgTemperature = avgTemperature;
             this.maxTemperature = maxTemperature;
             this.minTemperature = minTemperature;
-            
+
         }
 
         // Getters and setters
 
-
         public String getAvgTemperature() {
-			return avgTemperature;
-		}
+            return avgTemperature;
+        }
 
-		public void setAvgTemperature(String avgTemperature) {
-			this.avgTemperature = avgTemperature;
-		}
+        public void setAvgTemperature(String avgTemperature) {
+            this.avgTemperature = avgTemperature;
+        }
 
-		public String getMaxTemperature() {
+        public String getMaxTemperature() {
             return maxTemperature;
         }
 
@@ -218,6 +221,5 @@ public class ApiController {
             this.minTemperature = minTemperature;
         }
 
-     
     }
 }
