@@ -14,7 +14,7 @@ import org.json.simple.parser.JSONParser;
 
 public class ApiController {
 
-    private final String API_KEY = "YOUR_OWN_API_KEY";
+    private final String API_KEY = "60756bc41881c20a8c7806dbcbb5e1ec";
     private final String CURRENT_ENDPOINT = "http://api.weatherstack.com/current";
     private final String FORECAST_ENDPOINT = "http://api.weatherstack.com/forecast";
 
